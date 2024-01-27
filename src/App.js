@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Homepage from "./components/homepage/Homepage";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+  const [user, setLoginUser] = useState({});
   return (
     <div className="App">
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            {user && user._id ? <Homepage /> : <Login />}
+            <Homepage />
+          </Route>
+          <Route path="/Login">
+            <Login setLoginUser={setLoginUser} />
+          </Route>
+          <Route path="/Register">
+            <Register />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
